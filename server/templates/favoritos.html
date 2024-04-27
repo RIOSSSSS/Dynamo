@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos</title>
+    <style>
+        body {
+            font-family: Impact, fantasy;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* Defina a altura mínima do corpo como 100% da altura da viewport */
+            background: #000;
+            color: #333;
+            display: flex;
+            flex-direction: column; /* Adicione esta linha para garantir que os elementos se comportem como coluna */
+            
+        }
+
+        header {
+            background: linear-gradient(to right, #8B0000 5%, #000 35%);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        header img {
+            max-height: 70px;
+            margin-right: 20px;
+            margin-top: -5px;
+            margin-bottom: 5px;
+        }
+        
+        header p {
+            margin-top: 6px;
+            font-size: 21px;
+            color: #fff;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        
+
+        .favorites-container h2 {
+            color: #fff;
+            text-align: center;
+            text-weight: bold;
+        }
+        
+        .favorites-container {
+            color: #000;
+            text-align: center;
+            text-weight: bold;
+            margin: 50px;
+            padding-right: 35px;
+        }
+
+        #favorites-list {
+            list-style: none;
+        }
+
+        #favorites-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            font-weight: normal;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            top: 0;
+            left: -300px;
+            background-color: #1c1c1c;
+            overflow-x: hidden;
+            transition: 0.7s;
+            padding-top: 40px;
+            z-index: 2;
+        }
+            
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 19px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+            margin-bottom: 15px;
+        }
+            
+        .sidebar a:hover {
+            background-color: #8B0000;
+            color: #111;
+        }
+            
+        .openbtn {
+            font-size: 34px;
+            cursor: pointer;
+            background-color: transparent ;
+            color: #fff;
+            border: none;
+            margin-left: 0px;
+            margin-right: 20px;
+            width: 50px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+            
+        .sidebar .closebtn {
+            padding: 8px 0 8px 32px;
+            text-decoration: none;
+            font-size: 30px;
+            color: #fff;
+            display: block;
+            background: none; 
+            border: none; 
+        }
+
+        h2 {
+            align: center;
+            color: #000;
+            font-weight: normal;
+            
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #F8F8FF;
+            font-weight: normal;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-weight: normal;
+            font-size: 30px;
+        }
+
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Cor do fundo semi-transparente */
+            z-index: 1; /* Coloque acima de todos os outros elementos, exceto a barra lateral */
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div id="overlay" onclick="closeNav()"></div>
+
+        <div style="display: flex; align-items: left;">
+            <button class="openbtn" onclick="openNav()">&#9776;</button>
+            <a href="/menu">
+                <div class="header">
+                    <img src="{% static 'imagem/logo.png' %}" alt="Descrição da Imagem">
+                </div>
+            </a>
+            
+            {% if user.is_authenticated %}
+                <p style="margin-left: 10px; margin-top: 20px;">Olá  {{ user.username }}! Veja os itens que você adicionou.</p>
+            {% endif %}
+        </div>
+    </header>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a id="menu-link" href="{% url 'menu' %}">Home</a>
+        <a id="meus-dados-link" href="{% url 'meus_dados' %}">Meus Dados</a>        
+        <a id="enderecos-cadastrados-link" href="{% url 'enderecos_cadastrados' %}">Endereços Cadastrados</a>
+        <a id="favoritos-link" href="{% url 'favoritos' %}">Favoritos</a>
+    </div>
+    
+
+
+    <div class="favorites-container">
+        <h1>Meus Favoritos</h1>
+        <ul id="favorites-list"></ul>
+        <div id="item-details">
+            <img id="item-image" src="" alt="Imagem do Item">
+            <p id="item-name"></p>
+        </div>
+    </div>
+
+    <main id="main"></main>
+
+    <footer>
+        <div style="display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap;">
+            <div class="footer-section">
+                <h3>Entre em Contato</h3>
+                <p>Email: rios.vieira08170@gmail.com</p>
+                <p>Telefone: (61)99999-9999</p>
+            </div>
+            <div class="footer-section">
+                <h3>Todos os direitos reservados.</h3>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <ul>
+                    <!-- Adicione links para suas redes sociais -->
+                    <li><a href="https://www.facebook.com/pythonbrasil/">Facebook</a></li>
+                    <li><a href="https://twitter.com/css">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/javascript.js/">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Localização</h3>
+                <p>Maldivas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Função para exibir os favoritos na página
+        function showFavorites() {
+            // Obtém os favoritos armazenados no localStorage
+            let favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+        
+            // Obtém a lista de favoritos no HTML
+            let favoritesList = document.getElementById('favorites-list');
+        
+            // Limpa a lista de favoritos antes de exibir os itens
+            favoritesList.innerHTML = '';
+        
+            // Se a lista de favoritos estiver vazia, adiciona um item indicando que nenhum item foi favoritado ainda
+            if (favorites.length === 0) {
+                let noFavoritesItem = document.createElement('li');
+                noFavoritesItem.textContent = 'Nenhum item foi favoritado ainda.';
+                favoritesList.appendChild(noFavoritesItem);
+            } else {
+                // Itera sobre os itens favoritos e os adiciona à lista no HTML
+                favorites.forEach(function(item) {
+                    let li = document.createElement('li');
+                    li.textContent = item;
+                    li.addEventListener('click', function() {
+                        // Exibe a imagem e o nome do item quando clicado
+                        showItemDetails(item);
+                    });
+                    favoritesList.appendChild(li);
+                });
+            }
+        }
+        
+        // Função para exibir os detalhes do item (imagem e nome)
+        function showItemDetails(item) {
+            // Aqui você deve definir a lógica para exibir a imagem correspondente e o nome do item
+            // Vou usar placeholders para a imagem e o nome neste exemplo
+            
+            let itemImage = document.getElementById('item-image');
+            let itemName = document.getElementById('item-name');
+            
+            // Exemplo de URL da imagem correspondente ao item
+            let imageURL = `URL_DA_IMAGEM_${item}.jpg`;
+            itemImage.src = imageURL;
+            
+            // Define o nome do item
+            itemName.textContent = item;
+        }
+
+        // Chama a função para exibir os favoritos quando a página é carregada
+        window.onload = function() {
+            showFavorites();
+        };
+
+        function openNav() {
+            document.getElementById("mySidebar").style.left = "0";
+            document.getElementById("main").style.marginLeft = "300px";
+            document.getElementById("overlay").style.display = "block";
+        }
+            
+        function closeNav() {
+            document.getElementById("mySidebar").style.left = "-300px";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+        
+    </script>
+</body>
+</html>
