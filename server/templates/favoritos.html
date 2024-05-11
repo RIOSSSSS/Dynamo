@@ -195,14 +195,8 @@
     
 
 
-    <div class="favorites-container">
-        <h1>Meus Favoritos</h1>
-        <ul id="favorites-list"></ul>
-        <div id="item-details">
-            <img id="item-image" src="" alt="Imagem do Item">
-            <p id="item-name"></p>
-        </div>
-    </div>
+    <ul id="favorites-list"></ul>
+
 
     <main id="main"></main>
 
@@ -233,56 +227,65 @@
     </footer>
 
     <script>
-        // Função para exibir os favoritos na página
-        function showFavorites() {
-            // Obtém os favoritos armazenados no localStorage
-            let favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+
+        let itemImages = {
+            "Item1": "{% static 'imagem/pc item1.png' %}",
+            "Item2": "{% static 'imagem/pc item2.png' %}",
+            // Adicione mais itens e caminhos de imagem conforme necessário
+        };
+
         
-            // Obtém a lista de favoritos no HTML
-            let favoritesList = document.getElementById('favorites-list');
-        
-            // Limpa a lista de favoritos antes de exibir os itens
-            favoritesList.innerHTML = '';
-        
-            // Se a lista de favoritos estiver vazia, adiciona um item indicando que nenhum item foi favoritado ainda
-            if (favorites.length === 0) {
-                let noFavoritesItem = document.createElement('li');
-                noFavoritesItem.textContent = 'Nenhum item foi favoritado ainda.';
-                favoritesList.appendChild(noFavoritesItem);
-            } else {
-                // Itera sobre os itens favoritos e os adiciona à lista no HTML
-                favorites.forEach(function(item) {
-                    let li = document.createElement('li');
-                    li.textContent = item;
-                    li.addEventListener('click', function() {
-                        // Exibe a imagem e o nome do item quando clicado
-                        showItemDetails(item);
-                    });
-                    favoritesList.appendChild(li);
-                });
-            }
-        }
-        
-        // Função para exibir os detalhes do item (imagem e nome)
-        function showItemDetails(item) {
-            // Aqui você deve definir a lógica para exibir a imagem correspondente e o nome do item
-            // Vou usar placeholders para a imagem e o nome neste exemplo
-            
+        function showItemDetails(imageURL) {
             let itemImage = document.getElementById('item-image');
-            let itemName = document.getElementById('item-name');
-            
-            // Exemplo de URL da imagem correspondente ao item
-            let imageURL = `URL_DA_IMAGEM_${item}.jpg`;
-            itemImage.src = imageURL;
-            
-            // Define o nome do item
-            itemName.textContent = item;
+            if (itemImage) {
+                itemImage.src = imageURL;
+            } else {
+                console.error('Elemento item-image não encontrado.');
+            }
         }
 
         // Chama a função para exibir os favoritos quando a página é carregada
         window.onload = function() {
             showFavorites();
         };
+        
+        function showFavorites() {
+            let favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+            let favoritesList = document.getElementById('favorites-list');
+            favoritesList.innerHTML = '';
+        
+            if (favorites.length === 0) {
+                let noFavoritesItem = document.createElement('li');
+                noFavoritesItem.textContent = 'Nenhum item foi favoritado ainda.';
+                favoritesList.appendChild(noFavoritesItem);
+            } else {
+                favorites.forEach(function(item) {
+                    let li = document.createElement('li');
+        
+                    // Adiciona a imagem ao lado do nome do item
+                    let image = document.createElement('img');
+                    image.src = item.image;
+                    image.alt = item.name;
+                    image.style.width = "50px"; // Defina o tamanho da imagem conforme necessário
+                    li.appendChild(image);
+        
+                    // Adiciona o nome do item
+                    let itemName = document.createElement('span');
+                    itemName.textContent = item.name;
+                    li.appendChild(itemName);
+        
+                    favoritesList.appendChild(li);
+
+                    if (item !== undefined) {
+                        showItemDetails(item);
+                    }                    
+                });
+            }
+        }
+        
+        
+        // Função para exibir os detalhes do item (imagem e nome)
+        
 
         function openNav() {
             document.getElementById("mySidebar").style.left = "0";

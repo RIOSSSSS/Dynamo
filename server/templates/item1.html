@@ -253,12 +253,13 @@
         function toggleFavorites() {
             // Obtém o item atual
             let currentItem = 'Computador Pichau Gamer, Intel i5-13400, 16GB DDR4, SSD 480GB'; // Você pode ajustar isso conforme necessário
-        
+            let currentImage = "{% static 'imagem/pc item1.png' %}"; // Caminho da imagem do item
+            
             // Verifica se há itens favoritos armazenados
             let favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
-        
+            
             // Verifica se o item atual já está nos favoritos
-            let index = favorites.indexOf(currentItem);
+            let index = favorites.findIndex(item => item.name === currentItem);
             if (index !== -1) {
                 // Se o item estiver nos favoritos, remove-o
                 favorites.splice(index, 1);
@@ -268,7 +269,7 @@
                 alert("Item removido dos favoritos!");
             } else {
                 // Se o item não estiver nos favoritos, adiciona-o
-                favorites.push(currentItem);
+                favorites.push({ name: currentItem, image: currentImage });
                 // Atualiza a lista de favoritos no localStorage
                 localStorage.setItem('favorites', JSON.stringify(favorites));
                 // Exibe uma mensagem informando que o item foi adicionado aos favoritos

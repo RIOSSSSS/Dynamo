@@ -255,8 +255,8 @@
 
         .item-box p.original-price,
         .item-box p.discount-price {
-            text-align: left; /* Alinha os preços à esquerda */
-            margin-left: 5px; /* Adiciona margem à esquerda */
+            text-align: left;
+            margin-left: 5px; 
             
         }
 
@@ -279,7 +279,20 @@
             margin: 15px 0; 
             margin-left: 5px;
         }
+
+        .item-box .hover-image {
+            display: none;
+        }
         
+        
+        .item-box:hover .hover-image {
+            display: inline-block;
+        }
+        
+       
+        .item-box:hover .item-image {
+            display: none;
+        }
         
     </style>
 </head>
@@ -320,12 +333,13 @@
 
     <h2>COMPUTADORES</h2>
     <div class="item-container">
-        <div class="item-box" onclick="window.location.href='{% url 'item1' %}'">
-            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/g/a/gabinete-kazan2-preto-intel-m_dio-jpg002_10.jpg" alt="Item 1">
+        <div class="item-box" onmouseover="hoverImage(this)" onmouseout="originalImage(this)" onclick="window.location.href='{% url 'item1' %}'">
+            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/g/a/gabinete-kazan2-preto-intel-m_dio-jpg002_10.jpg" alt="Item 1" class="item-image">
+            <img src="{% static 'imagem/miniatura item1.png' %}" alt="Item 1 (Hover)" class="hover-image">
             <h3>Computador Gamer, Intel i5-13400, 16GB DDR4, SSD 480GB</h3>
             <p class="original-price">De: <span>R$ 5.999,99</span></p>
             <p class="discount-price">Por: R$ 5.169,52</p>
-        </div>
+        </div>     
 
         <div class="item-box" onclick="window.location.href='{% url 'item2' %}'">
             <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/p/o/pouter-3-branco-medio-001_2_1_1.jpg" alt="Item 2">
