@@ -292,8 +292,12 @@
        
         .item-box:hover .item-image {
             display: none;
+            
         }
         
+        .hover-image {
+            display: none;
+        }
     </style>
 </head>
 
@@ -341,28 +345,32 @@
             <p class="discount-price">Por: R$ 5.169,52</p>
         </div>     
 
-        <div class="item-box" onclick="window.location.href='{% url 'item2' %}'">
-            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/p/o/pouter-3-branco-medio-001_2_1_1.jpg" alt="Item 2">
+        <div class="item-box" onmouseover="hoverImage(this)" onmouseout="originalImage(this)" onclick="window.location.href='{% url 'item2' %}'">
+            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/p/o/pouter-3-branco-medio-001_2_1_1.jpg" alt="Item 2" class="item-image">
+            <img src="{% static 'imagem/miniatura item2.png' %}" alt="Item 2 (Hover)" class="hover-image">
             <h3>Computador Gamer Anúbis II, AMD Ryzen 9 5950X, 16GB DDR4, SSD M.2 480GB</h3>
             <p class="original-price">De: <span>R$ 10.999,99</span></p>
             <p class="discount-price">Por: R$ 9.765,28</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'item3' %}'">
-            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/t/g/tgt-flare-amd-sem-gpu-pichau-001_1_1.jpg" alt="Item 3">
+        <div class="item-box" onmouseover="hoverImage(this)" onmouseout="originalImage(this)" onclick="window.location.href='{% url 'item3' %}'">
+            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/t/g/tgt-flare-amd-sem-gpu-pichau-001_1_1.jpg" alt="Item 3" class="item-image">
+            <img src="{% static 'imagem/miniatura item3.png' %}" alt="Item 3 (Hover)" class="hover-image">
             <h3>Computador Gamer Balam, AMD Ryzen 5 4600G, 16GB DDR4, SSD 240GB</h3>
             <p class="original-price">De: <span>R$ 1.899,99</span></p>
             <p class="discount-price">Por: R$ 1.615,99</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'item4' %}'">
-            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/c/o/cooling-x-cooler-master-pichau-006.png" alt="Item 4">
+        <div class="item-box" onmouseover="hoverImage(this)" onmouseout="originalImage(this)" onclick="window.location.href='{% url 'item4' %}'">
+            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/c/o/cooling-x-cooler-master-pichau-006.png" alt="Item 4" class="item-image">
+            <img src="{% static 'imagem/miniatura item4.png' %}" alt="Item 4 (Hover)" class="hover-image">
             <h3>Cooler Master Cooling X, AMD Ryzen 9 7950X3D, GeForce RTX 4080 16GB, 64GB DDR5, SSD M.2 4TB, Liquid Cooler</h3>
             <p class="discount-price">R$ 67.999,99</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'item5' %}'">
-            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/c/c/cc560-white-led-azul-gabinete-001_1.jpg" alt="Item 5">
+        <div class="item-box" onmouseover="hoverImage(this)" onmouseout="originalImage(this)" onclick="window.location.href='{% url 'item5' %}'">
+            <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/c/c/cc560-white-led-azul-gabinete-001_1.jpg" alt="Item 5" class="item-image">
+            <img src="{% static 'imagem/miniatura item5.png' %}" alt="Item 5 (Hover)" class="hover-image">
             <h3>Computador Gamer Deepcool, AMD Ryzen 5 5600X, 16GB DDR4, SSD M.2 480GB</h3>
             <p class="original-price">De: <span>R$ 5.499,99</span></p>
             <p class="discount-price">Por: R$ 5.081,00</p>
@@ -377,34 +385,39 @@
     
     <h2>PERIFÉRICOS</h2>
     <div class="novo_container">
-        <div class="item-box" onclick="window.location.href='{% url 'novo1' %}'">
-            <img src="https://images.kabum.com.br/produtos/fotos/129688/teclado-mecanico-gamer-redragon-kumara-rgb-switch-outemu-blue-abnt2-branco-k552w-rgb-pt-blue-_1661259345_gg.jpg" alt="novo1">
+        <div class="item-box" onclick="window.location.href='{% url 'novo1' %}'" onmouseover="hoverImage(this)" onmouseout="originalImage(this)">
+            <img src="https://images.kabum.com.br/produtos/fotos/129688/teclado-mecanico-gamer-redragon-kumara-rgb-switch-outemu-blue-abnt2-branco-k552w-rgb-pt-blue-_1661259345_gg.jpg" alt="novo1" class="item-image">
+            <img src="{% static 'imagem/teclado novo1.png' %}" alt="novo1 (Hover)" class="hover-image">
             <h3>Teclado Mecânico Redragon Kumara Lunar White RGB Switch Brown, K552w-RGB PT-Brown</h3>
             <p class="discount-price"> R$ 158,99</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'novo2' %}'">
-            <img src="https://resource.logitechg.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/refreshed-g203/g203-black-gallery-1.png?v=1" alt="novo2">
+        <div class="item-box" onclick="window.location.href='{% url 'novo2' %}'" onmouseover="hoverImage(this)" onmouseout="originalImage(this)">
+            <img src="https://resource.logitechg.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/refreshed-g203/g203-black-gallery-1.png?v=1" alt="novo2" class="item-image">
+            <img src="{% static 'imagem/mouse lado novo2.png' %}" alt="novo2 (Hover)" class="hover-image">
             <h3>Mouse Gamer Logitech G203 LIGHTSYNC RGB, Efeito de Ondas de Cores, 6 Botões Programáveis e Até 8.000 DPI, PRETO</h3>
             <p class="discount-price">R$ 158,99</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'novo3' %}'">
-            <img src="https://images.kabum.com.br/produtos/fotos/149990/mouse-sem-fio-gamer-logitech-g-pro-x-superlight-lightspeed-5-botoes-25000-dpi-branco-910-005941_1614261697_gg.jpg" alt="novo3">
+        <div class="item-box" onclick="window.location.href='{% url 'novo3' %}'" onmouseover="hoverImage(this)" onmouseout="originalImage(this)">
+            <img src="https://images.kabum.com.br/produtos/fotos/149990/mouse-sem-fio-gamer-logitech-g-pro-x-superlight-lightspeed-5-botoes-25000-dpi-branco-910-005941_1614261697_gg.jpg" alt="novo3" class="item-image">
+            <img src="{% static 'imagem/mouse lado novo3.png' %}" alt="novo3 (Hover)" class="hover-image">
             <h3>Mouse Sem Fio Gamer Logitech G PRO X Superlight, Lightspeed, 25000 DPI, 5 Botões, Branco</h3>
             <p class="original-price">De: <span>R$ 899,99</span></p>
             <p class="discount-price">Por: R$ 799,99</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'novo4' %}'">
-            <img src="https://m.media-amazon.com/images/I/61tZYCa32KL._AC_UL320_.jpg" alt="novo4">
+        <div class="item-box" onclick="window.location.href='{% url 'novo4' %}'" onmouseover="hoverImage(this)" onmouseout="originalImage(this)">
+            <img src="https://m.media-amazon.com/images/I/61tZYCa32KL._AC_UL320_.jpg" alt="novo4" class="item-image">
+            <img src="{% static 'imagem/tecladao novo4.png' %}" alt="novo4 (Hover)" class="hover-image">
             <h3>Machenike K500-B61 Mini Teclado Mecânico Formato 60% com Fio, Teclas Removíveis, Retroiluminação RGB</h3>
             <p class="original-price">De: <span>R$ 215,99</span></p>
             <p class="discount-price">Por: R$ 205,99</p>
         </div>
         
-        <div class="item-box" onclick="window.location.href='{% url 'novo5' %}'">
-            <img src="https://images.kabum.com.br/produtos/fotos/sync_mirakl/154304/Mouse-Gamer-Razer-Deathadder-Essential-6400-DPI-com-fio_1699512491_gg.jpg" alt="novo5">
+        <div class="item-box" onclick="window.location.href='{% url 'novo5' %}'" onmouseover="hoverImage(this)" onmouseout="originalImage(this)">
+            <img src="https://images.kabum.com.br/produtos/fotos/sync_mirakl/154304/Mouse-Gamer-Razer-Deathadder-Essential-6400-DPI-com-fio_1699512491_gg.jpg" alt="novo5" class="item-image">
+            <img src="{% static 'imagem/mouse lado novo5.png' %}" alt="novo5 (Hover)" class="hover-image">
             <h3>Mouse Gamer Razer Deathadder Essential 6400 DPI com fio</h3>
             <p class="original-price">De: <span>R$ 349,99</span></p>
             <p class="discount-price">Por: R$ 299,99</p>
